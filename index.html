@@ -65,26 +65,42 @@
       </div>
       <div class="Gkampgrid">
         <h1 class="Gkamptitel">Komende Kampe</h1>
+
+        <!-- Dynamisk opdatering af de kommende kampe -->
         <div class="Gkampholder2">
           <img class="holdimg" src="img/Logo.png" alt="">
           <p>ValbyUnited</p>
           <h2>VS</h2>
           <p>ValbyUnited</p>
           <img class="holdimg" src="img/Logo.png" alt="">
+          <!-- Yderligere oplysninger -->
+          <p class="stadium">Stadium: Vigerslevparken</p>
+          <p class="matchDate">Dato: 2025-04-06</p>
+          <p class="roundNo">Runde: 14</p>
         </div>
+
         <div class="Gkampholder2">
           <img class="holdimg" src="img/Logo.png" alt="">
           <p>ValbyUnited</p>
           <h2>VS</h2>
           <p>ValbyUnited</p>
           <img class="holdimg" src="img/Logo.png" alt="">
+          <!-- Yderligere oplysninger -->
+          <p class="stadium">Stadium: Vigerslevparken</p>
+          <p class="matchDate">Dato: 2025-04-06</p>
+          <p class="roundNo">Runde: 14</p>
         </div>
+
         <div class="Gkampholder2">
           <img class="holdimg" src="img/Logo.png" alt="">
           <p>ValbyUnited</p>
           <h2>VS</h2>
           <p>ValbyUnited</p>
           <img class="holdimg" src="img/Logo.png" alt="">
+          <!-- Yderligere oplysninger -->
+          <p class="stadium">Stadium: Vigerslevparken</p>
+          <p class="matchDate">Dato: 2025-04-06</p>
+          <p class="roundNo">Runde: 14</p>
         </div>
       </div>
     </div>
@@ -135,16 +151,79 @@
   </footer>
   
   <script>
-  
+    const urlBackend = "https://valbyunitedbackendv1-production.up.railway.app/article/articles";
 
+    fetch(urlBackend)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data); // Debugging: Se data i console
 
-    
- 
+              const newsContainer = document.querySelector(".NEWscontainer"); // Containeren til en enkelt nyhed
 
+              // Loop gennem dataene og indsæt dem i HTML
+              data.forEach(article => {
+                // Find de nødvendige elementer fra HTML
+                const img = newsContainer.querySelector("#NEWsphoto");
+                const header = newsContainer.querySelector(".NEWsheader");
+                const text = newsContainer.querySelector(".NEWstext");
+                const ctaLink = newsContainer.querySelector(".cta");
 
+                // Opdater elementerne med data fra JSON
+                img.src = article.billede || "placeholder_img/default-image.jpg";  // Brug standardbillede hvis billede mangler
+                img.alt = article.header || "Nyheds billede"; // Opdater alt-tekst
 
-    
+                header.textContent = article.header || "Nyhed";  // Opdater overskrift
+                text.textContent = article.beskrivelse || "Beskrivelse ikke tilgængelig.";  // Opdater beskrivelse
 
+                // Opdater CTA-link
+                ctaLink.href = "#"; // Hvis du har et URL, opdater det her.
+                const button = ctaLink.querySelector("button");
+                button.textContent = "Læs Mere"; // Eventuelt opdatér CTA-tekst
+              });
+            })
+            .catch(error => console.error("Fejl ved hentning af data:", error));
+
+    const urlBackendUpcomingMatches = "https://valbyunitedbackendv1-production.up.railway.app/api/upcomingmatches";
+
+    fetch(urlBackendUpcomingMatches)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data); // Debugging: Se data i console
+
+              // Vi tager kun de første 3 kampe
+              const upcomingMatches = data.slice(0, 3);
+
+              // Gennemgå de første 3 kampe og opdater HTML
+              upcomingMatches.forEach((match, index) => {
+                // Vælg den relevante holder (0, 1, 2)
+                const matchHolder = document.querySelectorAll('.Gkampholder2')[index];
+
+                // Hent de relevante HTML-elementer
+                const homeTeamImage = matchHolder.querySelector('.holdimg:first-of-type');
+                const homeTeamName = matchHolder.querySelector('p:first-of-type');
+                const awayTeamName = matchHolder.querySelector('p:nth-of-type(2)');
+                const awayTeamImage = matchHolder.querySelector('.holdimg:last-of-type');
+                const vsText = matchHolder.querySelector('h2');
+
+                // Nye elementer for stadion, dato og runde
+                const stadiumText = matchHolder.querySelector('.stadium');
+                const matchDateText = matchHolder.querySelector('.matchDate');
+                const roundNoText = matchHolder.querySelector('.roundNo');
+
+                // Opdater elementer med data fra JSON
+                homeTeamImage.src = match.homeTeamLogo || 'img/Logo.png'; // Hvis der er et logo, brug det
+                homeTeamName.textContent = match.homeTeamName || 'Hold 1'; // Brug hjemmeteamets navn
+                awayTeamName.textContent = match.awayTeamName || 'Hold 2'; // Brug udeholdets navn
+                awayTeamImage.src = match.awayTeamLogo || 'img/Logo.png'; // Hvis der er et logo, brug det
+                vsText.textContent = 'VS'; // Kan ændres, hvis nødvendigt
+
+                // Opdater de nye oplysninger
+                stadiumText.textContent = `Stadium: ${match.stadiumName}` || 'Stadium: Ukendt';
+                matchDateText.textContent = `Dato: ${new Date(match.matchDateTime).toLocaleDateString('da-DK')}` || 'Dato: Ukendt';
+                roundNoText.textContent = `Runde: ${match.roundNo}` || 'Runde: Ukendt';
+              });
+            })
+            .catch(error => console.error("Fejl ved hentning af data:", error));
 
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.navlinks');
