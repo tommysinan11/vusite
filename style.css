@@ -1,379 +1,438 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    box-shadow: 0;
-  }
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 10%;
-    width: 100%;
-    position: fixed;
-    background-color: #08BB61;
-    z-index: 1000;
-  }
-  .logo {
-    width: 100px;
-    cursor: pointer;
-  }
-  li, a, button {
-    font-size: 16px;
-    color: #edf0f1;
-    text-decoration: none;
-  }
-  .navlinks {
-    list-style: none;
-    display: flex;
-  }
-  .navlinks li {
-    display: inline-block;
-    padding: 0px 20px;
-  }
-  .navlinks li a {
-    transition: all 0.3s ease 0s;
-  }
-  .navlinks li a:hover {
-    color: aquamarine;
-  }
-  .cta button {
-    padding: 9px 25px;
-    background-color: rgb(2, 99, 50);
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease 0s;
-    font-weight: bold;
-  }
-  .cta button:hover {
-    color: aquamarine;
-  }
-  /* Burger-menu stilarter */
-  .burger {
-    display: none;
-    cursor: pointer;
-  }
-  .burger div {
-    width: 25px;
-    height: 3px;
-    background-color: #edf0f1;
-    margin: 5px;
-    transition: all 0.3s ease;
-  }
- 
-  /* banner */
-  .bannerimg {
-    max-width: 100%;
-    margin-top: 80px;
-  }
-  .textnyheder {
-    color: white;
-    padding-left: 20px;
-  }
-  .NEWscontainer {
-    display: flex;
-    padding: 20px;
-    height: 600px;
-    margin-top: 50px;
-    justify-content: center;
-  }
-  .NEWstextholder {
-    padding-left: 20px;
-    background-color: antiquewhite;
-  }
-  /* Who is ValbyUnited */
-  .whoiscontainer {
-    display: flex;
-    background-color: green;
-    padding: 0px 80px;
-    margin-top: 70px;
-  }
-  .whoistextholder {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .whoistitel {
-    font-size: xx-large;
-    color: white;
-    padding-top: 30px;
-  }
-  .whoistext {
-    color: white;
-    font-size: 1.6vw;
-    padding-top: 30px;
-  }
-  .whoisimg {
-    width: 100%;
-    padding-left: 30px;
-  }
-  /* Kampsektion */
-  .Herre_Senior {
-    display: grid;
-    justify-content: center;
-    margin: 50px;
-    font-size: 42px;
-    font-weight: bolder;
-  }
-  .kampcontainer {
-    display: flex;
-    flex-direction: row;
-  }
-  .kampholder {
-    display: flex;
-  }
-  .holdimg {
-    width: 100%;
-  }
-  .Gkampholder {
-    display: grid;
-    grid-template-columns: 0.2fr 0.1fr 0.1fr 0.1fr 0.2fr;
-    gap: 0;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 10px 50px 40px;
-    font-size: 56px;
-    font-weight: bolder;
-  }
-  .Gkampholder2 {
-    display: grid;
-    grid-template-columns: 0.2fr 0.1fr 0.1fr 0.1fr 0.2fr;
-    gap: 0;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    font-size: 24px;
-    font-weight: bolder;
-  }
-  .Gkampgrid {
-    display: grid;
-    grid-template-rows: 0.2fr 1fr;
-    background-color: #D9D9D9;
-    text-align: center;
-    margin: 40px;
-  }
-  .Gkamptitel {
-    background-color: #08BB61;
-    padding: 20px;
-    font-size: 42px;
-  }
-  /* Sponser sektion */
-  .Sponserheader {
-    display: grid;
-    background-color: #08BB61;
-    padding: 30px 30px 30px 200px;
-    color: white;
-    font-size: 42px;
-    font-weight: 700;
-  }
-  .sponsercontainer {
-    display: flex;
-    flex-direction: row;
-    margin-top: 40px;
-    justify-content: center;
-    align-items: center;
-    gap: 100px;
-  }
-  .sponslogoimg {
-    width: 20%;
-    padding: 40px;
-    height: 50%;
-  }
-  /* Footer */
-  .footer {
-    background-color: black;
-    color: white;
-    padding: 40px 0;
-    text-align: center;
-    margin-top: 50px;
-  }
-  .footer-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: auto;
-  }
-  .footer-section {
-    flex: 1;
-    min-width: 250px;
-    margin: 10px;
-  }
-  .footer-logo {
-    width: 100px;
-    margin-bottom: 10px;
-  }
-  .footer-section h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  .footer-section ul li {
-    margin: 5px 0;
-  }
-  .footer-section ul li a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-section ul li a:hover {
-    color: aquamarine;
-  }
-  .footer-section p {
-    font-size: 14px;
-  }
-  .footer-section a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-section a:hover {
-    color: aquamarine;
-  }
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .social-icons img {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.3s;
-  }
-  .social-icons img:hover {
-    transform: scale(1.1);
-  }
-   /* Mobil-menu: Skjul nav-links og vis burger-menu */
-   @media screen and (max-width: 768px) {
-    .navlinks {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 70px;
-      right: 10%;
-      background-color: #08BB61;
-      padding: 10px;
-      border-radius: 5px;
+
+    /* Nulstil og basisstilarter */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      /* Fjern box-shadow, hvis det ønskes */
     }
-    .navlinks.nav-active {
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      width: 100%;
+      position: fixed;
+      background-color: #08BB61;
+      z-index: 1000;
+    }
+    .logo {
+      width: 100px;
+      cursor: pointer;
+    }
+    .navlinks {
+      list-style: none;
       display: flex;
     }
-    .burger {
-      display: block;
+    .navlinks li {
+      padding: 0 20px;
     }
-    .logo{
+    .navlinks a {
+      color: #edf0f1;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .navlinks a:hover {
+      color: aquamarine;
+    }
+    .burger {
       display: none;
+      cursor: pointer;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: #edf0f1;
+      margin: 5px;
+      transition: 0.3s;
+    }
+    /* Banner */
+    .bannerimg {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .textnyheder {
+  background-color: #08BB61;
+  color: white;
+  padding: 20px;
+    padding-left: 20px;
+  text-align: start;
+  margin-top: 30px;
+  padding-left: 100px;
+}
+    /* Swiper Carousel for Articles */
+    .swiper {
+      margin: 20px 0;
     }
     .NEWscontainer {
   display: flex;
-  padding: 0;
-  height: auto;
-  margin-top: 20px;
+  height: 600px;
+  margin-top: 50px;
   justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin-left: 10%;
 }
-  #NEWsphoto{
+    .NEWscontainer img,
+    .NEWstextholder {
+      flex: 1;
+    }
+    .NEWscontainer img {
       width: 100%;
-  }
-  .NEWsheader{
-      font-size: 20px;
-      padding: 10px 0px 10px 0px;
-  }
-  .NEWstext{
-      font-size: 15px;
-      padding-right: 10px;
-      padding-bottom: 20px;
-  }
+      height: 100%;
+      object-fit: cover;
+    }
+    .NEWstextholder {
+      padding: 20px;
+      background-color: antiquewhite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .NEWsheader {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .NEWstext {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    .cta button {
+      padding: 10px 20px;
+      background-color: #028732;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cta button:hover {
+      background-color: #026f29;
+    }
+    /* "Om ValbyUnited" sektion */
     .whoiscontainer {
       display: flex;
       background-color: green;
-      padding: 0px 0px;
-      margin-top: 30px;
-    }
-    .whoistitel {
-     font-size: 20px;
-     color: white;
-     padding: 20px;
-    }
-    .whoistext {
-     color: white;
-     font-size: 15px;
-     padding: 20px;
+      padding: 0 80px;
+      margin-top: 70px;
     }
     .whoistextholder {
-  display: grid;
-  grid-template-columns: 1fr;
-  }
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .whoistitel {
+      font-size: xx-large;
+      color: white;
+      padding-top: 30px;
+    }
+    .whoistext {
+      color: white;
+      font-size: 1.6vw;
+      padding-top: 30px;
+    }
     .whoisimg {
-     width: 100%;
-     padding-left: 0px;
+      width: 100%;
+      padding-left: 30px;
     }
-
+    /* Kampsektion */
     .Herre_Senior {
-     display: grid;
-     justify-content: center;
-     margin: 30px;
-     font-size: 24px;
-     font-weight: bolder;
+      display: grid;
+      justify-content: center;
+      margin: 50px;
+      font-size: 42px;
+      font-weight: bolder;
     }
-    .kampholder {
-     display: flex;
-     flex-direction: column;
-    }
-    .Gkamptitel {
-     background-color: #08BB61;
-     padding: 20px;
-     font-size: 32px;
-  }
-    .Gkampgrid {
-     display: grid;
-     grid-template-rows: 0.2fr 1fr;
-     background-color: #D9D9D9;
-     text-align: center;
-     margin: 20px;
-  }
-  .Sponserheader {
-    display: grid;
-    background-color: #08BB61;
-    padding: 10px 30px 10px 50px;
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
-  }  
-  .sponslogoimg {
-     width: 100%;
-     padding: 0px;
-     
-  }
-.Gkampholder2 {
-display: grid;
-grid-template-columns: 0.2fr 0.1fr 0.1fr 0.1fr 0.2fr;
-gap: 1rem;
-text-align: center;
-align-items: center;
-justify-content: center;
-padding: 10px;
-font-size: 12px;
-font-weight: bolder;
-gap: 1rem;
-
-  }
+    .kampcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin-left: 10%;
 }
+    /* Grid til kampsektionen med to kolonner */
+    .kamp-grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 40px;
+      width: 100%;
+    }
+    /* Seneste Kamp (venstre kolonne) */
+    .latest-match {
+      background-color: #333;
+      color: white;
+      width: 100%;
+    }
+    .holdimg{
+      width: 100%;
+    }
+    .latest-match .Gkamptitel {
+      background-color: #08BB61;
+      padding: 20px;
+      font-size: 42px;
+      text-align: center;
+      color: white;
+    }
+    .latest-match .Gkampholder {
+      display: grid;
+      grid-template-columns: 0.2fr 0.1fr 0.1fr 0.1fr 0.2fr;
+      gap: 0;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 10px 50px 40px;
+      font-size: 56px;
+      font-weight: bolder;
+    }
+    /* Komende Kampe (højre kolonne) - dynamisk med template */
+    .upcoming-matches {
+      background-color: #D9D9D9;
+      
+    }
+    .upcoming-matches .Gkamptitel {
+  background-color: #08BB61;
+  padding: 20px;
+  font-size: 42px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+    /* Begræns logo-størrelsen i kommende kampe */
+    .Gkampholder2 {
+  max-width: 100%;
+  height: auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+    /* Sponsor sektion */
+    .Sponserheader {
+      display: grid;
+      background-color: #08BB61;
+      padding: 30px 30px 30px 200px;
+      color: white;
+      font-size: 42px;
+      font-weight: 700;
+    }
+    .sponsercontainer {
+      display: flex;
+      flex-direction: row;
+      margin-top: 40px;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .sponslogoimg {
+      width: 20%;
+      padding: 40px;
+      height: 50%;
+    }
+    /* Footer */
+    .footer {
+      background-color: black;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin: 10px;
+    }
+    .footer-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-section ul li {
+      margin: 5px 0;
+    }
+    .footer-section ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-section ul li a:hover {
+      color: aquamarine;
+    }
+    .footer-section p {
+      font-size: 14px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.3s;
+    }
+    .social-icons img:hover {
+      transform: scale(1.1);
+    }
+    /* Mobil-menu */
+    @media screen and (max-width: 768px) {
+      .navlinks {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background-color: #08BB61;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      header {
+        padding: 10px 10%;
+      }
+      .navlinks.nav-active {
+        display: flex;
+      }
+      .burger {
+        display: block;
+      }
+      .logo {
+        width: 20%;
+      }
+      .NEWscontainer {
+        flex-direction: column;
+        height: auto;
+      }
+      #NEWsphoto {
+        width: 100%;
+      }
+      .NEWsheader {
+        font-size: 20px;
+        padding: 10px 0;
+      }
+      .NEWstext {
+        font-size: 15px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+      }
+      .textnyheder {
+         background-color: #08BB61;
+         color: white;
+         padding: 20px;
+         text-align: center;
+         font-size: 24px;
+         margin-top: 0;
+      }
+      .whoiscontainer {
+        display: flex;
+         background-color: green;
+        padding: 0;
+        margin-top: 70px;
+      }
+      .whoistextholder {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .whoisimg {
+        width: 100%;
+        padding-left:0;
+      }
+      .whoistext {
+        color: white;
+        font-size: 4.6vw;
+        padding: 30px 20px 30px 20px;
+      }
+      .whoistitel {
+  font-size: 24px;
+  color: white;
+  padding-top: 30px;
+  padding-left: 20px;
+}
+      .kamp-grid-container {
+        grid-template-columns: 1fr;
+      }.kampcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-left: 0;
+  width: 100%;
+}
+.latest-match .Gkamptitel {
+  background-color: #08BB61;
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+}
+.upcoming-matches .Gkamptitel {
+  background-color: #08BB61;
+  padding: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+.Sponserheader {
+  display: grid;
+  background-color: #08BB61;
+  padding: 10px 30px 10px 30px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+.sponslogoimg {
+  width: 30%;
+  padding: 0;
+  height: 100%;
+}
+.Gkampholder2 {
+  max-width: 100%;
+  height: auto;
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 3px;
+}
+.Herre_Senior {
+  display: grid;
+  justify-content: center;
+  margin: 10px;
+    margin-top: 10px;
+  font-size: 24px;
+  font-weight: bolder;
+  margin-top: 30px;
+}
+
+    }
+    /* Burger-menu toggle */
+    .toggle .line1 {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+      opacity: 0;
+    }
+    .toggle .line3 {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
   
-  /* Toggle-animation for burger-ikonet */
-  .toggle .line1 {
-    transform: rotate(-45deg) translate(-5px, 6px);
-  }
-  .toggle .line2 {
-    opacity: 0;
-  }
-  .toggle .line3 {
-    transform: rotate(45deg) translate(-5px, -6px);
-  }

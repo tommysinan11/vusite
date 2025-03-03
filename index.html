@@ -3,22 +3,459 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
- 
+  <title>Valby United</title>
+  <link href="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.css" rel="stylesheet">
+  <style>
+    /* Nulstil og basisstilarter */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      /* Fjern box-shadow, hvis det ønskes */
+    }
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+    }
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 10%;
+      width: 100%;
+      position: fixed;
+      background-color: #08BB61;
+      z-index: 1000;
+    }
+    .logo {
+      width: 100px;
+      cursor: pointer;
+    }
+    .navlinks {
+      list-style: none;
+      display: flex;
+    }
+    .navlinks li {
+      padding: 0 20px;
+    }
+    .navlinks a {
+      color: #edf0f1;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .navlinks a:hover {
+      color: aquamarine;
+    }
+    .burger {
+      display: none;
+      cursor: pointer;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: #edf0f1;
+      margin: 5px;
+      transition: 0.3s;
+    }
+    /* Banner */
+    .bannerimg {
+      width: 100%;
+      margin-top: 80px;
+    }
+    .textnyheder {
+  background-color: #08BB61;
+  color: white;
+  padding: 20px;
+    padding-left: 20px;
+  text-align: start;
+  margin-top: 30px;
+  padding-left: 100px;
+}
+    /* Swiper Carousel for Articles */
+    .swiper {
+      margin: 20px 0;
+    }
+    .NEWscontainer {
+  display: flex;
+  height: 600px;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin-left: 10%;
+}
+    .NEWscontainer img,
+    .NEWstextholder {
+      flex: 1;
+    }
+    .NEWscontainer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .NEWstextholder {
+      padding: 20px;
+      background-color: antiquewhite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .NEWsheader {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .NEWstext {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    .cta button {
+      padding: 10px 20px;
+      background-color: #028732;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cta button:hover {
+      background-color: #026f29;
+    }
+    /* "Om ValbyUnited" sektion */
+    .whoiscontainer {
+      display: flex;
+      background-color: green;
+      padding: 0 80px;
+      margin-top: 70px;
+    }
+    .whoistextholder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .whoistitel {
+      font-size: xx-large;
+      color: white;
+      padding-top: 30px;
+    }
+    .whoistext {
+      color: white;
+      font-size: 1.6vw;
+      padding-top: 30px;
+    }
+    .whoisimg {
+      width: 100%;
+      padding-left: 30px;
+    }
+    /* Kampsektion */
+    .Herre_Senior {
+      display: grid;
+      justify-content: center;
+      margin: 50px;
+      font-size: 42px;
+      font-weight: bolder;
+    }
+    .kampcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin-left: 10%;
+}
+    /* Grid til kampsektionen med to kolonner */
+    .kamp-grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 40px;
+      width: 100%;
+    }
+    /* Seneste Kamp (venstre kolonne) */
+    .latest-match {
+      background-color: #333;
+      color: white;
+      width: 100%;
+    }
+    .holdimg{
+      width: 100%;
+    }
+    .latest-match .Gkamptitel {
+      background-color: #08BB61;
+      padding: 20px;
+      font-size: 42px;
+      text-align: center;
+      color: white;
+    }
+    .latest-match .Gkampholder {
+      display: grid;
+      grid-template-columns: 0.2fr 0.1fr 0.1fr 0.1fr 0.2fr;
+      gap: 0;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 10px 50px 40px;
+      font-size: 56px;
+      font-weight: bolder;
+    }
+    /* Komende Kampe (højre kolonne) - dynamisk med template */
+    .upcoming-matches {
+      background-color: #D9D9D9;
+      
+    }
+    .upcoming-matches .Gkamptitel {
+  background-color: #08BB61;
+  padding: 20px;
+  font-size: 42px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+    /* Begræns logo-størrelsen i kommende kampe */
+    .Gkampholder2 {
+  max-width: 100%;
+  height: auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+    /* Sponsor sektion */
+    .Sponserheader {
+      display: grid;
+      background-color: #08BB61;
+      padding: 30px 30px 30px 200px;
+      color: white;
+      font-size: 42px;
+      font-weight: 700;
+    }
+    .sponsercontainer {
+      display: flex;
+      flex-direction: row;
+      margin-top: 40px;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    .sponslogoimg {
+      width: 20%;
+      padding: 40px;
+      height: 50%;
+    }
+    /* Footer */
+    .footer {
+      background-color: black;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin: 10px;
+    }
+    .footer-logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-section ul li {
+      margin: 5px 0;
+    }
+    .footer-section ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-section ul li a:hover {
+      color: aquamarine;
+    }
+    .footer-section p {
+      font-size: 14px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social-icons img {
+      width: 30px;
+      height: 30px;
+      transition: transform 0.3s;
+    }
+    .social-icons img:hover {
+      transform: scale(1.1);
+    }
+    /* Mobil-menu */
+    @media screen and (max-width: 768px) {
+      .navlinks {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 10%;
+        background-color: #08BB61;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      header {
+        padding: 10px 10%;
+      }
+      .navlinks.nav-active {
+        display: flex;
+      }
+      .burger {
+        display: block;
+      }
+      .logo {
+        width: 20%;
+      }
+      .NEWscontainer {
+        flex-direction: column;
+        height: auto;
+      }
+      #NEWsphoto {
+        width: 100%;
+      }
+      .NEWsheader {
+        font-size: 20px;
+        padding: 10px 0;
+      }
+      .NEWstext {
+        font-size: 15px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+      }
+      .textnyheder {
+         background-color: #08BB61;
+         color: white;
+         padding: 20px;
+         text-align: center;
+         font-size: 24px;
+         margin-top: 0;
+      }
+      .whoiscontainer {
+        display: flex;
+         background-color: green;
+        padding: 0;
+        margin-top: 70px;
+      }
+      .whoistextholder {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .whoisimg {
+        width: 100%;
+        padding-left:0;
+      }
+      .whoistext {
+        color: white;
+        font-size: 4.6vw;
+        padding: 30px 20px 30px 20px;
+      }
+      .whoistitel {
+  font-size: 24px;
+  color: white;
+  padding-top: 30px;
+  padding-left: 20px;
+}
+      .kamp-grid-container {
+        grid-template-columns: 1fr;
+      }.kampcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-left: 0;
+  width: 100%;
+}
+.latest-match .Gkamptitel {
+  background-color: #08BB61;
+  padding: 15px;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+}
+.upcoming-matches .Gkamptitel {
+  background-color: #08BB61;
+  padding: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+.Sponserheader {
+  display: grid;
+  background-color: #08BB61;
+  padding: 10px 30px 10px 30px;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+.sponslogoimg {
+  width: 30%;
+  padding: 0;
+  height: 100%;
+}
+.Gkampholder2 {
+  max-width: 100%;
+  height: auto;
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 3px;
+}
+.Herre_Senior {
+  display: grid;
+  justify-content: center;
+  margin: 10px;
+    margin-top: 10px;
+  font-size: 24px;
+  font-weight: bolder;
+  margin-top: 30px;
+}
+
+    }
+    /* Burger-menu toggle */
+    .toggle .line1 {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+      opacity: 0;
+    }
+    .toggle .line3 {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <img class="logo" src="img/Logo.png" alt="Valby United Logo">
     <nav>
       <ul class="navlinks">
         <li><a href="index.html">home</a></li>
-        <li><a href="">Om os</a></li>
+        <!-- <li><a href="test.html">Om os</a></li> -->
         <li><a href="E-sport.html">E-sport</a></li>
-        <li><a href="">Kontakt os</a></li>
+        <!-- <li><a href="#">Kontakt os</a></li> -->
       </ul>
     </nav>
-    
     <div class="burger">
       <div class="line1"></div>
       <div class="line2"></div>
@@ -26,98 +463,87 @@
     </div>
   </header>
   
+  <!-- Banner -->
   <div>
-    <img class="bannerimg" src="img/bander.jpg" alt="">
-    <h1 class="textnyheder">Nyheder</h1>
+    <img class="bannerimg" src="img/bander.jpg" alt="Banner">
+    <h1 class="textnyheder">Nyheder i ValbyUnited</h1>
   </div>
   
-  <section class="NEWscontainer">
-    <img id="NEWsphoto" src="placeholder_img/63285a261aa73d4edba80542_Placeholder-Image-1x1.svg" alt="">
-    <div class="NEWstextholder">
-      <h2 class="NEWsheader">NEWS1</h2>
-      <p class="NEWstext">maxime repellat rerum eum illo tempore placeat ipsa modi vero assumenda quidem commodi sit sunt, expedita similique fugiat hic molestiae.</p>
-      <a class="cta" href=""><button>Læs Mere</button></a>
+  <!-- Swiper Carousel for Articles -->
+  <div class="swiper">
+    <div class="swiper-wrapper" id="articles">
+      <!-- Dynamiske slides indsættes her -->
     </div>
-  </section>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-scrollbar"></div>
+  </div>
   
+  <!-- Template til en artikel-slide -->
+  <template id="articleTemplate">
+    <div class="swiper-slide">
+      <article class="NEWscontainer">
+        <img id="NEWsphoto" src="placeholder_img/63285a261aa73d4edba80542_Placeholder-Image-1x1.svg" alt="Nyheds billede">
+        <div class="NEWstextholder">
+          <h2 class="NEWsheader">NEWS1</h2>
+          <p class="NEWstext">maxime repellat rerum eum illo tempore placeat ipsa modi vero assumenda quidem commodi sit sunt, expedita similique fugiat hic molestiae.</p>
+          <a class="cta" href="#"><button>Læs Mere</button></a>
+        </div>
+      </article>
+    </div>
+  </template>
+  
+  <!-- "Om ValbyUnited" sektion -->
   <section class="whoiscontainer">
     <div class="whoistextholder">
       <div>
         <h1 class="whoistitel">Hvem er ValbyUnited</h1>
-        <p class="whoistext">Valby United er langt mere end en fodboldklub – det er et levende fællesskab, der samler folk på tværs af baggrunde, aldre og ambitioner. Klubben startede i 2021 som Boldklubben Folehaven og fik i 2024 sit nuværende navn, der understreger ønsket om at inkludere hele Valby. For os er fodbold et redskab til at skabe sammenhold og udvikling for både elite- og breddefodboldspillere. Med dedikerede trænere og et stærkt fællesskab bygger vi vores klub på værdier som inklusion, kvalitet og engagement – og vi byder alle velkommen til at blive en del af vores bevægelse.</p>
+        <p class="whoistext">
+          Valby United er langt mere end en fodboldklub – det er et levende fællesskab, der samler folk på tværs af baggrunde, aldre og ambitioner. Klubben startede i 2021 som Boldklubben Folehaven og fik i 2024 sit nuværende navn, der understreger ønsket om at inkludere hele Valby. For os er fodbold et redskab til at skabe sammenhold og udvikling for både elite- og breddefodboldspillere. Med dedikerede trænere og et stærkt fællesskab bygger vi vores klub på værdier som inklusion, kvalitet og engagement – og vi byder alle velkommen til at blive en del af vores bevægelse.
+        </p>
       </div>
-      <img class="whoisimg" src="img/hvem_er_VU.jpg" alt="">
+      <img class="whoisimg" src="img/hvem_er_VU.jpg" alt="ValbyUnited">
     </div>
   </section>
+  <h1 class="Herre_Senior">Senior Herre Elite 1</h1>
   
-  <h1 class="Herre_Senior">Herre Senior Elite</h1>
+  <!-- Kamp sektion: Seneste Kamp og Komende Kampe i et grid -->
   <section class="kampcontainer">
-    <div class="kampholder">
-      <div class="Gkampgrid">
+    <div class="kamp-grid-container">
+      <!-- Seneste Kamp (venstre kolonne) -->
+      <div class="latest-match">
         <h1 class="Gkamptitel">Seneste Kamp</h1>
         <div class="Gkampholder">
-          <img class="holdimg" src="img/Logo.png" alt="">
+          <img class="holdimg" src="img/Logo.png" alt="Hjemmehold">
           <p>3</p>
           <p>-</p>
           <p>0</p>
-          <img class="holdimg" src="img/Logo.png" alt="">
+          <img class="holdimg" src="img/Logo.png" alt="Udehold">
         </div>
       </div>
-      <div class="Gkampgrid">
+      <!-- Komende Kampe (højre kolonne) -->
+      <div class="upcoming-matches">
         <h1 class="Gkamptitel">Komende Kampe</h1>
-
-        <!-- Dynamisk opdatering af de kommende kampe -->
-        <div class="Gkampholder2">
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <p>ValbyUnited</p>
-          <h2>VS</h2>
-          <p>ValbyUnited</p>
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <!-- Yderligere oplysninger -->
-          <p class="stadium">Stadium: Vigerslevparken</p>
-          <p class="matchDate">Dato: 2025-04-06</p>
-          <p class="roundNo">Runde: 14</p>
-        </div>
-
-        <div class="Gkampholder2">
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <p>ValbyUnited</p>
-          <h2>VS</h2>
-          <p>ValbyUnited</p>
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <!-- Yderligere oplysninger -->
-          <p class="stadium">Stadium: Vigerslevparken</p>
-          <p class="matchDate">Dato: 2025-04-06</p>
-          <p class="roundNo">Runde: 14</p>
-        </div>
-
-        <div class="Gkampholder2">
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <p>ValbyUnited</p>
-          <h2>VS</h2>
-          <p>ValbyUnited</p>
-          <img class="holdimg" src="img/Logo.png" alt="">
-          <!-- Yderligere oplysninger -->
-          <p class="stadium">Stadium: Vigerslevparken</p>
-          <p class="matchDate">Dato: 2025-04-06</p>
-          <p class="roundNo">Runde: 14</p>
+        <div id="upcomingMatchesContainer">
+          <!-- Dynamiske kommende kampe indsættes her via template -->
         </div>
       </div>
     </div>
   </section>
   
+  <!-- Sponsor sektion -->
   <h1 class="Sponserheader">Sponsor</h1>
   <section class="sponsercontainer">
-    <img class="sponslogoimg" src="img/the bagel store.png" alt="">
-    <img class="sponslogoimg" src="img/svane skilte.png" alt="">
-    <img class="sponslogoimg" src="img/erbil.png" alt="">
+    <img class="sponslogoimg" src="img/the bagel store.png" alt="The Bagel Store">
+    <img class="sponslogoimg" src="img/svane skilte.png" alt="Svane Skilte">
+    <img class="sponslogoimg" src="img/erbil.png" alt="Erbil">
   </section>
   <section class="sponsercontainer">
-    <img class="sponslogoimg" src="img/focuslogo.webp" alt="">
-    <img class="sponslogoimg" src="img/select-logo.png" alt="">
-    <img class="sponslogoimg" src="img/alliance.webp" alt="">
-  </section>
-  
+    <img class="sponslogoimg" src="img/focuslogo.webp" alt="Focus">
+    <img class="sponslogoimg" src="img/select-logo.png" alt="Select">
+    <img class="sponslogoimg" src="img/alliance.webp" alt="Alliance">
+  </section><!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
@@ -150,87 +576,112 @@
     </div>
   </footer>
   
+  
+  
+  <!-- Template til et kommende kamp-element -->
+  <template id="upcomingMatchTemplate">
+    <div class="Gkampholder2">
+      
+        <img class="holdimg" src="img/Logo.png" alt="Hjemmehold">
+        <p class="awayTeam">Hold 2</p>
+      
+      <h2>VS</h2>
+        <p class="homeTeam">Hold 1</p>
+        <img class="holdimg" src="img/Logo.png" alt="Udehold">
+      <div>
+        <p class="stadium">Stadium: Ukendt</p>
+      <p class="matchDate">Dato: Ukendt</p>
+      <p class="roundNo">Runde: Ukendt</p>
+      </div>
+    </div>
+  </template>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.js"></script>
+  
+  <!-- Dynamisk indlæsning af artikler -->
   <script>
     const urlBackend = "https://valbyunitedbackendv1-production.up.railway.app/article/articles";
-
     fetch(urlBackend)
-            .then(res => res.json())
-            .then(data => {
-              console.log(data); // Debugging: Se data i console
-
-              const newsContainer = document.querySelector(".NEWscontainer"); // Containeren til en enkelt nyhed
-
-              // Loop gennem dataene og indsæt dem i HTML
-              data.forEach(article => {
-                // Find de nødvendige elementer fra HTML
-                const img = newsContainer.querySelector("#NEWsphoto");
-                const header = newsContainer.querySelector(".NEWsheader");
-                const text = newsContainer.querySelector(".NEWstext");
-                const ctaLink = newsContainer.querySelector(".cta");
-
-                // Opdater elementerne med data fra JSON
-                img.src = article.billede || "placeholder_img/default-image.jpg";  // Brug standardbillede hvis billede mangler
-                img.alt = article.header || "Nyheds billede"; // Opdater alt-tekst
-
-                header.textContent = article.header || "Nyhed";  // Opdater overskrift
-                text.textContent = article.beskrivelse || "Beskrivelse ikke tilgængelig.";  // Opdater beskrivelse
-
-                // Opdater CTA-link
-                ctaLink.href = "#"; // Hvis du har et URL, opdater det her.
-                const button = ctaLink.querySelector("button");
-                button.textContent = "Læs Mere"; // Eventuelt opdatér CTA-tekst
-              });
-            })
-            .catch(error => console.error("Fejl ved hentning af data:", error));
-
+      .then(res => res.json())
+      .then(data => {
+        const template = document.querySelector('#articleTemplate');
+        const articlesContainer = document.querySelector('#articles');
+        data.forEach(article => {
+          const clone = template.content.cloneNode(true);
+          const img = clone.querySelector("#NEWsphoto");
+          const header = clone.querySelector(".NEWsheader");
+          const text = clone.querySelector(".NEWstext");
+          const ctaLink = clone.querySelector(".cta");
+          
+          img.src = article.billede || "placeholder_img/default-image.jpg";
+          img.alt = article.header || "Nyheds billede";
+          header.textContent = article.header || "Nyhed";
+          text.textContent = article.beskrivelse || "Beskrivelse ikke tilgængelig.";
+          ctaLink.href = "#";
+          
+          articlesContainer.appendChild(clone);
+        });
+      })
+      .catch(error => console.error("Fejl ved hentning af data:", error));
+  </script>
+  
+  <!-- Dynamisk indlæsning af kommende kampe via template -->
+  <script>
     const urlBackendUpcomingMatches = "https://valbyunitedbackendv1-production.up.railway.app/api/upcomingmatches";
-
     fetch(urlBackendUpcomingMatches)
-            .then(res => res.json())
-            .then(data => {
-              console.log(data); // Debugging: Se data i console
-
-              // Vi tager kun de første 3 kampe
-              const upcomingMatches = data.slice(0, 3);
-
-              // Gennemgå de første 3 kampe og opdater HTML
-              upcomingMatches.forEach((match, index) => {
-                // Vælg den relevante holder (0, 1, 2)
-                const matchHolder = document.querySelectorAll('.Gkampholder2')[index];
-
-                // Hent de relevante HTML-elementer
-                const homeTeamImage = matchHolder.querySelector('.holdimg:first-of-type');
-                const homeTeamName = matchHolder.querySelector('p:first-of-type');
-                const awayTeamName = matchHolder.querySelector('p:nth-of-type(2)');
-                const awayTeamImage = matchHolder.querySelector('.holdimg:last-of-type');
-                const vsText = matchHolder.querySelector('h2');
-
-                // Nye elementer for stadion, dato og runde
-                const stadiumText = matchHolder.querySelector('.stadium');
-                const matchDateText = matchHolder.querySelector('.matchDate');
-                const roundNoText = matchHolder.querySelector('.roundNo');
-
-                // Opdater elementer med data fra JSON
-                homeTeamImage.src = match.homeTeamLogo || 'img/Logo.png'; // Hvis der er et logo, brug det
-                homeTeamName.textContent = match.homeTeamName || 'Hold 1'; // Brug hjemmeteamets navn
-                awayTeamName.textContent = match.awayTeamName || 'Hold 2'; // Brug udeholdets navn
-                awayTeamImage.src = match.awayTeamLogo || 'img/Logo.png'; // Hvis der er et logo, brug det
-                vsText.textContent = 'VS'; // Kan ændres, hvis nødvendigt
-
-                // Opdater de nye oplysninger
-                stadiumText.textContent = `Stadium: ${match.stadiumName}` || 'Stadium: Ukendt';
-                matchDateText.textContent = `Dato: ${new Date(match.matchDateTime).toLocaleDateString('da-DK')}` || 'Dato: Ukendt';
-                roundNoText.textContent = `Runde: ${match.roundNo}` || 'Runde: Ukendt';
-              });
-            })
-            .catch(error => console.error("Fejl ved hentning af data:", error));
-
+      .then(res => res.json())
+      .then(data => {
+        const upcomingContainer = document.querySelector('#upcomingMatchesContainer');
+        const upcomingTemplate = document.querySelector('#upcomingMatchTemplate');
+        const upcomingMatches = data.slice(0, 3);
+        upcomingMatches.forEach(match => {
+          const clone = upcomingTemplate.content.cloneNode(true);
+          const homeTeamImage = clone.querySelector('.holdimg:first-of-type');
+          const homeTeamName = clone.querySelector('.homeTeam');
+          const awayTeamName = clone.querySelector('.awayTeam');
+          const awayTeamImage = clone.querySelector('.holdimg:last-of-type');
+          const vsText = clone.querySelector('h2');
+          const stadiumText = clone.querySelector('.stadium');
+          const matchDateText = clone.querySelector('.matchDate');
+          const roundNoText = clone.querySelector('.roundNo');
+          
+          homeTeamImage.src = match.homeTeamLogo || 'img/Logo.png';
+          homeTeamName.textContent = match.homeTeamName || 'Hold 1';
+          awayTeamName.textContent = match.awayTeamName || 'Hold 2';
+          awayTeamImage.src = match.awayTeamLogo || 'img/Logo.png';
+          vsText.textContent = 'VS';
+          
+          stadiumText.textContent = `Stadium: ${match.stadiumName}` || 'Stadium: Ukendt';
+          matchDateText.textContent = `Dato: ${new Date(match.matchDateTime).toLocaleDateString('da-DK')}` || 'Dato: Ukendt';
+          roundNoText.textContent = `Runde: ${match.roundNo}` || 'Runde: Ukendt';
+          
+          upcomingContainer.appendChild(clone);
+        });
+      })
+      .catch(error => console.error("Fejl ved hentning af kommende kampe:", error));
+  </script>
+  
+  <!-- Burger-menu funktionalitet -->
+  <script>
     const burger = document.querySelector('.burger');
     const navLinks = document.querySelector('.navlinks');
-
     burger.addEventListener('click', () => {
       navLinks.classList.toggle('nav-active');
       burger.classList.toggle('toggle');
+    });
+  </script>
+  
+  <!-- Initialiser Swiper -->
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination' },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      scrollbar: { el: '.swiper-scrollbar' },
     });
   </script>
 </body>
