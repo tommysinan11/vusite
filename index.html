@@ -646,10 +646,10 @@
           const matchDateText = clone.querySelector('.matchDate');
           const roundNoText = clone.querySelector('.roundNo');
           
-          homeTeamImage.src = match.homeTeamLogo || 'img/Logo.png';
+          homeTeamImage.src = match.awayTeamLogo || 'img/Logo.png';
           homeTeamName.textContent = match.homeTeamName || 'Hold 1';
           awayTeamName.textContent = match.awayTeamName || 'Hold 2';
-          awayTeamImage.src = match.awayTeamLogo || 'img/Logo.png';
+          awayTeamImage.src = match.homeTeamLogo || 'img/Logo.png';
           vsText.textContent = 'VS';
           
           stadiumText.textContent = `Stadium: ${match.stadiumName}` || 'Stadium: Ukendt';
@@ -682,6 +682,34 @@
         prevEl: '.swiper-button-prev'
       },
       scrollbar: { el: '.swiper-scrollbar' },
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("http://localhost:8070/api/latestmatch") // Udskift med den faktiske URL
+              .then(response => response.json())
+              .then(data => {
+                if (data.length === 0) return;
+
+                const match = data[0];
+
+                // Find containeren i DOM'en
+                const latestMatchContainer = document.querySelector(".latest-match");
+
+                // Opdater HTML'en dynamisk
+                latestMatchContainer.innerHTML = `
+                <h1 class="Gkamptitel">Seneste Kamp</h1>
+                <div class="Gkampholder">
+                    <img class="holdimg" src="${match.homeTeamLogo}" alt="${match.homeTeamName}">
+                    <p>${match.homeTeamScore}</p>
+                    <p>-</p>
+                    <p>${match.awayTeamScore}</p>
+                    <img class="holdimg" src="${match.awayTeamLogo}" alt="${match.awayTeamName}">
+                </div>
+                <p class="stadium">Spillet på: ${match.stadiumName}</p>
+            `;
+              })
+              .catch(error => console.error("Fejl ved hentning af data:", error));
     });
   </script>
 </body>
