@@ -646,10 +646,10 @@
           const matchDateText = clone.querySelector('.matchDate');
           const roundNoText = clone.querySelector('.roundNo');
           
-          homeTeamImage.src = match.homeTeamLogo || 'img/Logo.png';
+          homeTeamImage.src = match.awayTeamLogo || 'img/Logo.png';
           homeTeamName.textContent = match.homeTeamName || 'Hold 1';
           awayTeamName.textContent = match.awayTeamName || 'Hold 2';
-          awayTeamImage.src = match.awayTeamLogo || 'img/Logo.png';
+          awayTeamImage.src = match.homeTeamLogo || 'img/Logo.png';
           vsText.textContent = 'VS';
           
           stadiumText.textContent = `Stadium: ${match.stadiumName}` || 'Stadium: Ukendt';
