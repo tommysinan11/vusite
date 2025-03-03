@@ -515,14 +515,12 @@
       <!-- Seneste Kamp (venstre kolonne) -->
       <div class="latest-match">
         <h1 class="Gkamptitel">Seneste Kamp</h1>
-        <div class="Gkampholder">
-          <img class="holdimg" src="img/Logo.png" alt="Hjemmehold">
-          <p>3</p>
-          <p>-</p>
-          <p>0</p>
-          <img class="holdimg" src="img/Logo.png" alt="Udehold">
+        <div id="latestMatchContainer">
+          <!-- Dynamisk indhold indsættes her -->
         </div>
       </div>
+
+
       <!-- Komende Kampe (højre kolonne) -->
       <div class="upcoming-matches">
         <h1 class="Gkamptitel">Kommende Kampe</h1>
@@ -596,6 +594,22 @@
       </div>
     </div>
   </template>
+
+  <template id="latestMatchTemplate">
+    <div class="Gkampholder">
+      <img class="holdimg homeTeamLogo" src="" alt="Hjemmehold">
+      <p class="homeTeamName"></p>
+      <p class="homeTeamScore"></p>
+
+      <h2>VS</h2>
+      <p class="awayTeamScore"></p>
+      <img class="holdimg awayTeamLogo" src="" alt="Udehold">
+      <p class="awayTeamName"></p>
+    </div>
+    <p class="stadium"></p>
+    <p class="matchDateTime"></p>
+  </template>
+
   
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11.2.4/swiper-bundle.min.js"></script>
@@ -685,9 +699,10 @@
       scrollbar: { el: '.swiper-scrollbar' },
     });
 
-
+  </script>
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
-      fetch("http://localhost:8070/api/latestmatch") // Udskift med den faktiske URL
+      fetch("https://valbyunitedbackendv1-production.up.railway.app/api/latestmatch")
               .then(response => response.json())
               .then(data => {
                 if (data.length === 0) return;
@@ -695,20 +710,30 @@
                 const match = data[0];
 
                 // Find containeren i DOM'en
-                const latestMatchContainer = document.querySelector(".latest-match");
+                const latestMatchContainer = document.querySelector("#latestMatchContainer");
+                const latestMatchTemplate = document.querySelector("#latestMatchTemplate");
 
-                // Opdater HTML'en dynamisk
-                latestMatchContainer.innerHTML = `
-                <h1 class="Gkamptitel">Seneste Kamp</h1>
-                <div class="Gkampholder">
-                    <img class="holdimg" src="${match.homeTeamLogo}" alt="${match.homeTeamName}">
-                    <p>${match.homeTeamScore}</p>
-                    <p>-</p>
-                    <p>${match.awayTeamScore}</p>
-                    <img class="holdimg" src="${match.awayTeamLogo}" alt="${match.awayTeamName}">
-                </div>
-                <p class="stadium">Spillet på: ${match.stadiumName}</p>
-            `;
+                // Klon skabelonen
+                const clone = latestMatchTemplate.content.cloneNode(true);
+
+                // Find elementerne i klonen
+                const homeTeamName = clone.querySelector(".homeTeamName")
+                const awayTeamName = clone.querySelector(".awayTeamName")
+                const homeTeamImage = clone.querySelector('.holdimg:first-of-type');
+                const homeTeamScore = clone.querySelector('.homeTeamScore');
+                const awayTeamScore = clone.querySelector('.awayTeamScore');
+                const awayTeamImage = clone.querySelector('.holdimg:last-of-type');
+                const stadiumText = clone.querySelector('.stadium');
+
+                // Opdater indholdet med data
+                homeTeamImage.src = match.homeTeamLogo ? match.homeTeamLogo : 'img/Logo.png';  // Hvis ingen logo, brug standardbilledet
+                homeTeamScore.textContent = match.homeTeamScore !== undefined ? match.homeTeamScore : 'Ukendt';
+                awayTeamScore.textContent = match.awayTeamScore !== undefined ? match.awayTeamScore : 'Ukendt';
+                awayTeamImage.src = match.awayTeamLogo ? match.awayTeamLogo : 'img/Logo.png'; // Hvis ingen logo, brug standardbilledet
+                stadiumText.textContent = match.stadiumName ? `Spillet på: ${match.stadiumName}` : 'Stadion: Ukendt';
+
+                // Tilføj den opdaterede klon til containeren
+                latestMatchContainer.appendChild(clone);
               })
               .catch(error => console.error("Fejl ved hentning af data:", error));
     });
